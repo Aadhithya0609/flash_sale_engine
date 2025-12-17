@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # The Reliable Database (PostgreSQL)
+  db:
+    image: postgres:15
+    container_name: flash_sale_db
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=flashsale_pass
+      - POSTGRES_DB=flashsale
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # The High-Speed Cache (Redis)
+  redis:
+    image: redis:7
+    container_name: flash_sale_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
