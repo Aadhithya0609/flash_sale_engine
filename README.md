@@ -31,3 +31,31 @@ This project implements a **pessimistic locking strategy** using Redis:
 Run Redis and PostgreSQL in Docker containers:
 ```bash
 docker-compose up -d
+
+2. Install Dependencies
+Bash
+
+pip install -r requirements.txt
+3. Initialize Database
+Create tables and seed the DB with a dummy product (iPhone 15, 100 stock):
+
+Bash
+
+python init_db.py
+4. Run the Server
+Bash
+
+uvicorn main:app --reload
+🧪 Testing the Race Condition
+I have included an attack script that acts like a DDoS attack of buyers.
+
+To Run the Load Test:
+
+Bash
+
+python attack.py
+Expected Output:
+
+Without Lock (Naive): Inventory ends at 85 (Data Corruption).
+
+With Lock (Smart): Inventory ends at 0 (Perfect Consistency).
